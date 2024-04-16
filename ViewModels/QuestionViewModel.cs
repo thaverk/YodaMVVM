@@ -54,9 +54,9 @@ namespace YodaMVVM.ViewModels
         {
             var navigationParameter = new Dictionary<string, object>
              {
-         { "Response", message }
+                 { "Response", message }
              };
-            await Shell.Current.GoToAsync($"loadsheddinganswer", navigationParameter);
+            await Shell.Current.GoToAsync($"answerpage", navigationParameter);
 
         }
 
@@ -82,6 +82,7 @@ namespace YodaMVVM.ViewModels
             {
 
             }
+            
             bool isSuccessful = await view.HideKeyboardAsync(token);
 
         }
