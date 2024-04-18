@@ -17,6 +17,7 @@ namespace YodaMVVM
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -49,8 +50,8 @@ namespace YodaMVVM
         
         public static MauiAppBuilder RegisterViews (this MauiAppBuilder mauiAppBuilder)
         {
-            mauiAppBuilder.Services.AddTransient<AnswerPage>();
-            mauiAppBuilder.Services.AddTransient<QuestionPage>();
+            mauiAppBuilder.Services.AddSingleton<AnswerPage>();
+            mauiAppBuilder.Services.AddSingleton<QuestionPage>();
             return mauiAppBuilder;
         }
     }

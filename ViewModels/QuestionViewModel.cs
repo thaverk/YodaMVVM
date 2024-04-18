@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using YodaMVVM.Models;
 using YodaMVVM.Services.Interface;
 using YodaMVVM.Enum;
+using YodaMVVM.Services;
 
 namespace YodaMVVM.ViewModels
 {
@@ -43,7 +44,7 @@ namespace YodaMVVM.ViewModels
         }
 
         public QuestionViewModel(IYodaAI assistant)
-        {
+        { 
             _assistant = assistant;
             ChatHistory = new ObservableCollection<ChatMessage>();
             ChatHistory.Add(new ChatMessage { MessageType = Enum.ChatMessageTypeEnum.Inbound, MessageBody = "Greetings Young Padawan! Help you, how can I? Hmm?" });
@@ -80,7 +81,7 @@ namespace YodaMVVM.ViewModels
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             
             bool isSuccessful = await view.HideKeyboardAsync(token);

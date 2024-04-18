@@ -5,7 +5,7 @@
              xmlns:selector="clr-namespace:YodaMVVM.Views.Templates"
              xmlns:models="clr-namespace:YodaMVVM.Models"
              xmlns:viewmodels="clr-namespace:YodaMVVM.ViewModels"
-             Title="QuestionPage">
+             Title="QuestionPage" x:DataType="viewmodels:QuestionViewModel">
     
     <ContentPage.Resources>
         <Style TargetType="Grid">

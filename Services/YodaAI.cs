@@ -11,11 +11,11 @@ using YodaMVVM.Services.Interface;
 
 namespace YodaMVVM.Services
 {
-    public class YodaAI:IYodaAI
+    public class YodaAI : IYodaAI
     {
         private ISettings _settings;
 
-        private const string AssistantBehaviorDescription = "I am an AI assistant that can help you with your loadshedding questions.";
+
         public YodaAI(ISettings settings)
         {
             _settings = settings;
@@ -25,10 +25,9 @@ namespace YodaMVVM.Services
         {
             var chatContext = new List<ChatRequestMessage>();
 
-            chatContext.Add(new ChatRequestSystemMessage(AssistantBehaviorDescription));
-
             foreach (var chatMessage in chatInboundHistory)
-                chatContext.Add(new ChatRequestAssistantMessage(chatMessage.MessageBody));
+
+                chatContext.Add(new ChatRequestUserMessage(chatMessage.MessageBody));
 
             chatContext.Add(new ChatRequestUserMessage(userMessage.MessageBody));
 
@@ -36,34 +35,38 @@ namespace YodaMVVM.Services
 
         }
 
-        public ChatResponseMessage GetCompletion(IList<ChatMessage> chatInboundHistory, ChatMessage userMessage)
+        public  ChatResponseMessage GetCompletion(IList<ChatMessage> chatInboundHistory, ChatMessage userMessage)
         {
             var messages = BuildChatContext(chatInboundHistory, userMessage);
 
             var client = new OpenAIClient(new Uri(_settings.AzureOpenAiEndPoint), new AzureKeyCredential(_settings.AzureOpenAiKey));
             string deploymentName = "yodaAssignment";
-            string searchIndex = "yodaAssignment";
-            
+
             var chatCompletionsOptions = new ChatCompletionsOptions()
-            { 
-                
-                Messages = 
-                    {
-                   
-                        new ChatRequestSystemMessage ("You are an AI bot that gives information and fun facts on the Star Wars franchise in the personality of Yoda."),
-                         new ChatRequestUserMessage("Greetings Young Padawan! Help You,How can I? Hmmm?")
-                    },
-                DeploymentName = deploymentName
+            {
+               
+
+                Messages =
+                {
+                    new ChatRequestSystemMessage("You are an AI bot that gives information and fun facts on the Star Wars franchise in the personality of Yoda."),
+                    new ChatRequestUserMessage("Greetings Young Padawan! Help You,How can I? Hmmm?")
+                },
+                DeploymentName = deploymentName,
             };
 
+
             foreach (var message in messages)
+
                 chatCompletionsOptions.Messages.Add(message);
+
 
             Response<ChatCompletions> response = client.GetChatCompletions(chatCompletionsOptions);
 
-            ChatResponseMessage responseMessage = response.Value.Choices[0].Message;
 
+            ChatResponseMessage responseMessage = response.Value.Choices[0].Message;
+           
             return responseMessage;
+            
         }
     }
 }

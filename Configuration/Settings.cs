@@ -10,6 +10,6 @@ namespace YodaMVVM.Configuration
     {
 
         public string AzureOpenAiEndPoint { get => "https://ketyodaassignment.openai.azure.com/"; }
-        public string AzureOpenAiKey { get => "5f2751f73a5a419885b2194b045ce2f5"; }
+        public string AzureOpenAiKey { get => "d2a68b6fd28a49fbb6f77c53f132dee4"; }
     }
 }
