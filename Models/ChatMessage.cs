@@ -8,7 +8,7 @@ using YodaMVVM.Enum;
 
 namespace YodaMVVM.Models
 {
-    public class ChatMessage
+    public class YodaChatMessage
     {
         public ChatMessageTypeEnum MessageType{get;set; }
         public string? MessageBody { get; set; }

@@ -13,8 +13,8 @@ namespace YodaMVVM
 
         private void RegisterRoutes()
         {
-            Routing.RegisterRoute("questionpage", typeof(QuestionPage));
-            Routing.RegisterRoute("answerpage", typeof(AnswerPage));
+            Routing.RegisterRoute("factpage", typeof(FactPage));
+            
         }
 
 

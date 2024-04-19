@@ -14,6 +14,6 @@ namespace YodaMVVM.Services.Interface
     public interface IYodaAI
     {
 
-        ChatResponseMessage GetCompletion(IList<ChatMessage> chatInboundHistory, ChatMessage userMessage);
+        Task<ChatMessage> GetCompletion();
     }
 }

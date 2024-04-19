@@ -43,15 +43,14 @@ namespace YodaMVVM
         
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
         {
-            mauiAppBuilder.Services.AddSingleton<AnswerViewModel>();
-            mauiAppBuilder.Services.AddSingleton<QuestionViewModel>();
+            mauiAppBuilder.Services.AddSingleton<FactPageViewModel>();
             return mauiAppBuilder;
         }
         
         public static MauiAppBuilder RegisterViews (this MauiAppBuilder mauiAppBuilder)
         {
-            mauiAppBuilder.Services.AddSingleton<AnswerPage>();
-            mauiAppBuilder.Services.AddSingleton<QuestionPage>();
+            mauiAppBuilder.Services.AddSingleton<FactPage>();
+           
             return mauiAppBuilder;
         }
     }

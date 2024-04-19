@@ -56,10 +56,11 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Resources\Images\sendicon.png" />
+	  <None Remove="Resources\Images\yoda.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.16" />
+		<PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.8" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
@@ -68,10 +69,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\AnswerPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\QuestionPage.xaml">
+	  <MauiXaml Update="Views\FactPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

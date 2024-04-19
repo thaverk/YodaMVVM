@@ -21,52 +21,36 @@ namespace YodaMVVM.Services
             _settings = settings;
         }
 
-        private IList<ChatRequestMessage> BuildChatContext(IList<ChatMessage> chatInboundHistory, ChatMessage userMessage)
+       
+
+        public async Task<ChatMessage> GetCompletion()
         {
-            var chatContext = new List<ChatRequestMessage>();
-
-            foreach (var chatMessage in chatInboundHistory)
-
-                chatContext.Add(new ChatRequestUserMessage(chatMessage.MessageBody));
-
-            chatContext.Add(new ChatRequestUserMessage(userMessage.MessageBody));
-
-            return chatContext;
-
-        }
-
-        public  ChatResponseMessage GetCompletion(IList<ChatMessage> chatInboundHistory, ChatMessage userMessage)
-        {
-            var messages = BuildChatContext(chatInboundHistory, userMessage);
-
-            var client = new OpenAIClient(new Uri(_settings.AzureOpenAiEndPoint), new AzureKeyCredential(_settings.AzureOpenAiKey));
-            string deploymentName = "yodaAssignment";
-
-            var chatCompletionsOptions = new ChatCompletionsOptions()
+            try
             {
-               
 
-                Messages =
+                var client = new OpenAIClient(new Uri(_settings.AzureOpenAiEndPoint), new AzureKeyCredential(_settings.AzureOpenAiKey));
+                string deploymentName = "yodaAssignment";
+
+                var chatCompletionsOptions = new ChatCompletionsOptions()
                 {
-                    new ChatRequestSystemMessage("You are an AI bot that gives information and fun facts on the Star Wars franchise in the personality of Yoda."),
-                    new ChatRequestUserMessage("Greetings Young Padawan! Help You,How can I? Hmmm?")
+
+
+                    Messages =
+                {
+                    new ChatMessage(ChatRole.System,("You are an AI bot that gives information and fun facts on the Star Wars franchise in the personality of Yoda.")),
+                    new ChatMessage(ChatRole.User,("Give me a Fun Fact!")),
                 },
-                DeploymentName = deploymentName,
-            };
 
+                };
+                Response<ChatCompletions> response = await client.GetChatCompletionsAsync(deploymentName, chatCompletionsOptions);
+                ChatMessage responseMessage = response.Value.Choices[0].Message;
 
-            foreach (var message in messages)
-
-                chatCompletionsOptions.Messages.Add(message);
-
-
-            Response<ChatCompletions> response = client.GetChatCompletions(chatCompletionsOptions);
-
-
-            ChatResponseMessage responseMessage = response.Value.Choices[0].Message;
-           
-            return responseMessage;
-            
+                return responseMessage;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
